@@ -1,0 +1,33 @@
+.foobar,
+.appbar {
+	color: var(--mat-color);
+	background: var(--mat-bg-primary);
+}
+.appbar {
+	--fs: 24px;
+	@apply border-b flex gap-1.5 h-16 items-center justify-start px-2 py-1;
+}
+.foobar {
+	--fs: 22px;
+	@apply border-t flex gap-1 py-1 h-16 justify-start px-2 text-center;
+
+	.nav-item {
+		@apply flex-grow grid place-content-center relative overflow-hidden gap-1;
+
+		.icon {
+			@apply grid place-content-center rounded-2xl w-16 h-8 delay-75 duration-500 transition-colors ease-in-out;
+		}
+		span {
+			@apply text-xs font-semibold;
+		}
+		&.active {
+			.icon {
+				@apply grid place-content-center rounded-2xl w-16 h-8;
+				background-color: var(--mat-act);
+			}
+			span {
+				@apply italic;
+			}
+		}
+	}
+}
