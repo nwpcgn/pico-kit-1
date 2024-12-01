@@ -1,0 +1,5 @@
+# Verzeichnisse
+node_modules/
+
+# Dateien
+.env
