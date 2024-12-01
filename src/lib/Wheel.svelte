@@ -1,7 +1,7 @@
 <script lang="ts">
 	// import { goto, route, Router } from "@mateothegreat/svelte5-router";
 	import { onMount } from 'svelte'
-	import { Modal } from 'bootstrap'
+	// import { Modal } from 'bootstrap'
 	const radius = 200
 	const centerX = radius
 	const centerY = radius
