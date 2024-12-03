@@ -9,7 +9,7 @@
 
 <Appbar></Appbar>
 
-<main class="main">
+<main class="main  s-light">
 	{@render children?.()}
 </main>
 <IconSprite />

@@ -1,5 +1,4 @@
 <script>
-	import { goto } from 'elegua'
 	import { supabase, getUser, _user } from '../'
 	import { onMount } from 'svelte'
 	import Icon from '../../Icon.svelte'

@@ -8,7 +8,7 @@
 	--spacing-xl: calc(var(--spacing) * 2);
 	--content-space: var(--spacing);
 	--page-space: var(--content-space);
-	/* 	--sky-50: #dff4fd;
+	--sky-50: #dff4fd;
 	--sky-100: #b5e4f9;
 	--sky-200: #8bd4f5;
 	--sky-300: #62c5f1;
@@ -17,7 +17,7 @@
 	--sky-600: #0c87bf;
 	--sky-700: #096a95;
 	--sky-800: #074c6b;
-	--sky-900: #042e41; */
+	--sky-900: #042e41;
 	--gray-50: #e7eaee;
 	--gray-100: #cdd2da;
 	--gray-200: #b3bbc6;
@@ -28,6 +28,19 @@
 	--gray-700: #3f4957;
 	--gray-800: #2c333d;
 	--gray-900: #191d23;
+	--red-50: #fff1f4;
+    --red-100: #ffe4eb;
+    --red-200: #fecdd9;
+    --red-300: #fda4ba;
+    --red-400: #fb7193;
+    --red-500: #f43f6b;
+    --red-600: #e11d4d;
+    --red-700: #be123c;
+    --red-800: #9f1234;
+    --red-900: #881330;
+    --red-950: #4c0516;
+    
+    
 }
 
 /* :root {
@@ -218,6 +231,46 @@ svg.nwp-icon {
 	stroke: currentColor;
 	fill: currentColor;
 	font-size: var(--fs, 24px);
+}
+
+.img-grid {
+	--min: 220px;
+	--gap: 1rem;
+	display: grid;
+	grid-gap: var(--gap);
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--min)), 1fr));
+}
+.img-grid figure {
+	--tw-shadow-color: currentColor;
+	--tw-shadow: var(--tw-shadow-colored);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1rem;
+	overflow: hidden;
+	padding: 0.5rem;
+	border-radius: 0.25rem;
+	--tw-shadow: 0 1px 3px 0 rgb(0 0 0/0.1), 0 1px 2px -1px rgb(0 0 0/0.1);
+	--tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color),
+		0 1px 2px -1px var(--tw-shadow-color);
+	box-shadow: var(--tw-ring-offset-shadow, 0 0 rgba(0, 0, 0, 0)),
+		var(--tw-ring-shadow, 0 0 rgba(0, 0, 0, 0)), var(--tw-shadow);
+}
+.img-grid figure img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	-o-object-fit: cover;
+	object-fit: cover;
+}
+.img-grid figure figcaption {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-weight: 100;
+}
+.img-grid figure svg {
+	font-size: 60px;
 }
 
 .split-screen {

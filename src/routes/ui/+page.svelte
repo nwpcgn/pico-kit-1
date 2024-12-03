@@ -1,4 +1,7 @@
 <script lang="ts">
+	import Test1 from './_test2.svelte'
+	import Test from './_test.svelte'
+
 	import { Collapsible } from '$lib/index.js'
 
 	let { data } = $props()
@@ -16,4 +19,6 @@
 			<h2 aria-hidden="true">{data.name}</h2>
 		</hgroup>
 	</div>
+	<Test></Test>
+	<Test1></Test1>
 </div>

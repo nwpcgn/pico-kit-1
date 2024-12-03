@@ -9,6 +9,7 @@ export { default as fetchData } from './utils/fetchData'
 export { default as randInt } from './utils/randInt'
 export { default as randNum } from './utils/randNum'
 export { default as sleep } from './utils/sleep'
+export { default as uuid } from './utils/uuid'
 export const themes = [
 	'light',
 	'dark',

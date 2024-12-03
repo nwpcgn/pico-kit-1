@@ -21,12 +21,9 @@
 	</div>
 
 	{#if $open}
-		<svelte:element
-			this={card ? 'article' : 'div'}
-			use:melt={$content}
-			transition:slide>
+		<div use:melt={$content} transition:slide>
 			{@render children?.()}
-		</svelte:element>
+		</div>
 	{/if}
 </div>
 
