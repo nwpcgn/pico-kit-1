@@ -3,7 +3,12 @@
 	import { slide } from 'svelte/transition'
 	import { uuid, sleep } from '$lib'
 
-	function typewriter(node, { speed = 1 }) {
+	let processing = $state(false)
+	let toasts = $state([])
+	let buffer = $state([])
+	let typeSpeed = 1
+
+	function typewriter(node, { speed = typeSpeed }) {
 		const valid =
 			node.childNodes.length === 1 &&
 			node.childNodes[0].nodeType === Node.TEXT_NODE
@@ -25,27 +30,30 @@
 			}
 		}
 	}
-	let processing = $state(false)
-	let toasts = $state([])
-	let buffer = $state([
-		'in Svelte, we can also make',
-		'properties of classes reactive',
-		'Its not just variables',
-		'that can be made reactive'
-	])
 
-	const drop = async () => {
-		console.log('drop')
-		if (buffer[0]) {
-			const duration = buffer[0].length / (1 * 0.01)
-			addToast({ txt: buffer[0] })
-			buffer.shift()
-			await sleep(duration)
-			drop()
+	const logMsg = async (txt, style = 'info') => {
+		if (!txt) return
+		buffer.push({ txt, style })
+		if (!processing) {
+			nextMsg()
 		}
 	}
 
-	export const addToast = (toast) => {
+	const nextMsg = async () => {
+		if (buffer[0]) {
+			processing = true
+			const duration = buffer[0].length / (typeSpeed * 0.01)
+			let obj = buffer.shift()
+			addToast(obj)
+
+			await sleep(duration)
+			nextMsg()
+		} else {
+			processing = false
+		}
+	}
+
+	const addToast = (toast) => {
 		const id = uuid()
 		const defaults = {
 			id,
@@ -53,16 +61,18 @@
 			static: false
 		}
 		toasts = [...toasts, { ...defaults, ...toast }]
-		if (!toast.static) sleep(9000).then(() => dismissToast(id))
+		if (!toast.static) {
+			sleep(9000).then(() => dismissToast(id))
+		}
 	}
 
-	export const dismissToast = (id) => {
+	const dismissToast = (id) => {
 		toasts = toasts.filter((t) => t.id !== id)
 	}
 
 	onMount(async () => {
 		await sleep(2000)
-		drop()
+		if (buffer[0]) nextMsg()
 	})
 </script>
 
@@ -72,8 +82,7 @@
 		<div>
 			{#each [1, 2, 3] as item}
 				<div>
-					<button
-						onclick={() => addToast({ txt: `This is Message Nr ${item}` })}
+					<button onclick={() => logMsg(`This is Message Nr ${item}`, 'error')}
 						>Action {item}</button>
 				</div>
 			{/each}
@@ -84,7 +93,9 @@
 <div class="s-container">
 	<div class="list">
 		{#each toasts as item (item.id)}
-			<div class={item.type} in:typewriter out:slide>{item.txt}</div>
+			<div class={item.style} in:typewriter out:slide>
+				{item.txt}
+			</div>
 		{/each}
 	</div>
 </div>
@@ -99,5 +110,8 @@
 	}
 	.info {
 		color: var(--sky-600);
+	}
+	.error {
+		color: var(--red-600);
 	}
 </style>

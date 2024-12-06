@@ -2,7 +2,7 @@
 	let { data } = $props()
 </script>
 
-<svelte:head><title>Ui-Elements</title></svelte:head>
+<svelte:head><title>Ui-Elements 3</title></svelte:head>
 
 <div class="layer nwp">
 	<div class="s-container">
@@ -16,9 +16,9 @@
 	</div>
 	<div class="s-container">
 		<menu>
-			{#each data.sub as { name, href }}
-				<li><a {href}>{name}</a></li>
-			{/each}
+			<li>Deploying Websites to Hosting Platforms</li>
+			<li>Web Security Best Practices</li>
+			<li>Introduction to Serverless Architecture</li>
 		</menu>
 	</div>
 </div>

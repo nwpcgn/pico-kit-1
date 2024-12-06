@@ -3,12 +3,7 @@
 	import { slide } from 'svelte/transition'
 	import { uuid, sleep } from '$lib'
 
-	let processing = $state(false)
-	let toasts = $state([])
-	let buffer = $state([])
-	let dura = 1
-
-	function typewriter(node, { speed = dura }) {
+	function typewriter(node, { speed = 1 }) {
 		const valid =
 			node.childNodes.length === 1 &&
 			node.childNodes[0].nodeType === Node.TEXT_NODE
@@ -30,27 +25,18 @@
 			}
 		}
 	}
+	let processing = $state(false)
+	let toasts = $state([])
+	let buffer = $state([])
 
-	const logMsg = async (txt, style = 'info') => {
-		if (!txt) return
-		buffer.push({ txt, style })
-		if (!processing) {
-			nextMsg()
-		}
-	}
-
-	const nextMsg = async () => {
+	const drop = async () => {
+		console.log('drop')
 		if (buffer[0]) {
-			processing = true
-			const duration = buffer[0].length / (dura * 0.01)
-			let obj = buffer.shift()
-			console.log({ obj })
-			addToast(obj)
-
+			const duration = buffer[0].length / (1 * 0.01)
+			addToast({ txt: buffer[0] })
+			buffer.shift()
 			await sleep(duration)
-			nextMsg()
-		} else {
-			processing = false
+			drop()
 		}
 	}
 
@@ -62,9 +48,7 @@
 			static: false
 		}
 		toasts = [...toasts, { ...defaults, ...toast }]
-		if (!toast.static) {
-			sleep(9000).then(() => dismissToast(id))
-		}
+		if (!toast.static) sleep(9000).then(() => dismissToast(id))
 	}
 
 	export const dismissToast = (id) => {
@@ -73,7 +57,7 @@
 
 	onMount(async () => {
 		await sleep(2000)
-		if (buffer[0]) nextMsg()
+		drop()
 	})
 </script>
 
@@ -83,7 +67,8 @@
 		<div>
 			{#each [1, 2, 3] as item}
 				<div>
-					<button onclick={() => logMsg(`This is Message Nr ${item}`, 'error')}
+					<button
+						onclick={() => addToast({ txt: `This is Message Nr ${item}` })}
 						>Action {item}</button>
 				</div>
 			{/each}
@@ -94,9 +79,7 @@
 <div class="s-container">
 	<div class="list">
 		{#each toasts as item (item.id)}
-			<div class={item.style} in:typewriter out:slide>
-				{item.txt}
-			</div>
+			<div class={item.type} in:typewriter out:slide>{item.txt}</div>
 		{/each}
 	</div>
 </div>
@@ -111,8 +94,5 @@
 	}
 	.info {
 		color: var(--sky-600);
-	}
-	.error {
-		color: var(--red-600);
 	}
 </style>

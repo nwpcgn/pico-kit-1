@@ -39,18 +39,14 @@
 		}
 	])
 
-	todos.push({
-		done: false,
-		text: 'eat lunch'
-	})
+	// todos.push({
+	// 	done: false,
+	// 	text: 'eat lunch'
+	// })
 
-	console.log(todos)
-	todos.shift()
-	console.log(todos)
-
-	function handleClick() {
-		count += 1
-	}
+	// console.log(todos)
+	// todos.shift()
+	// console.log(todos)
 </script>
 
 <div class="s-container">

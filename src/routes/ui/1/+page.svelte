@@ -1,8 +1,9 @@
 <script lang="ts">
+	import Poke from './_Poke.svelte'
 	let { data } = $props()
 </script>
 
-<svelte:head><title>Ui-Elements</title></svelte:head>
+<svelte:head><title>Ui-Elements 1</title></svelte:head>
 
 <div class="layer nwp">
 	<div class="s-container">
@@ -15,10 +16,6 @@
 		</hgroup>
 	</div>
 	<div class="s-container">
-		<menu>
-			{#each data.sub as { name, href }}
-				<li><a {href}>{name}</a></li>
-			{/each}
-		</menu>
+		<Poke />
 	</div>
 </div>
