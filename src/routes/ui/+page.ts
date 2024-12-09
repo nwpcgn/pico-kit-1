@@ -13,6 +13,14 @@ export const load = async () => {
 			{
 				name: 'Pkmn 3',
 				href: '/ui/3'
+			},
+			{
+				name: 'Pkmn 4',
+				href: '/ui/4'
+			},
+			{
+				name: 'Pkmn 5',
+				href: '/ui/5'
 			}
 		]
 	}

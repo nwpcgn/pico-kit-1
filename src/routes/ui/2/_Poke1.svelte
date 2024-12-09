@@ -1,14 +1,9 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
-
+	import { updateMessages, clearMessages } from './_Msg.svelte'
 	interface Sprites {
 		front: string
 		back: string
-	}
-
-	interface Message {
-		text: string
-		style: string
 	}
 
 	class WildPokemon {
@@ -107,10 +102,7 @@
 	let playerMove: number
 	let playerTurn = false
 	let pokemonHealth: number = 50
-	let messageBuffer: Message[] = []
-	let isProcessingMessages = false
 
-	let messages: Message[] = []
 	let actionButtons: { text: string; onClick: () => void }[] = []
 
 	function randomPokemon() {
@@ -188,25 +180,6 @@
 		actionButtons = [{ text: 'Restart', onClick: restartFight }]
 	}
 
-	function updateMessages(text: string, style: string = '') {
-		messageBuffer.push({ text, style })
-		if (!isProcessingMessages) {
-			processNextMessage()
-		}
-	}
-
-	function processNextMessage() {
-		if (messageBuffer.length === 0) {
-			isProcessingMessages = false
-			return
-		}
-
-		isProcessingMessages = true
-		const { text, style } = messageBuffer.shift()!
-		messages = [...messages, { text, style }]
-		setTimeout(() => processNextMessage(), 1000)
-	}
-
 	function restartFight() {
 		messages = []
 		actionButtons = []
@@ -230,28 +203,16 @@
 	}
 
 	onMount(() => {
-		// startFight()
+		startFight()
 	})
 </script>
 
-<div>
-	<div id="messages">
-		{#each messages as { text, style }}
-			<div class={style}>{text}</div>
-		{/each}
-	</div>
-
-	<div id="actions">
-		<div class="s-grid" style="--span:2;">
-			<div>
-				{#each actionButtons as { text, onClick }}
-					<div><button on:click={onClick}>{text}</button></div>
-				{/each}
-			</div>
+<div id="actions">
+	<div class="s-grid" style="--span:2;">
+		<div>
+			{#each actionButtons as { text, onClick }}
+				<div><button on:click={onClick}>{text}</button></div>
+			{/each}
 		</div>
 	</div>
 </div>
-
-<style>
-	/* Add your styles here */
-</style>

@@ -25,6 +25,7 @@
 					<li>Introduction to Serverless Architecture</li>
 				</menu>
 			</Collapsible>
+		
 		</div>
 	</div>
 </div>

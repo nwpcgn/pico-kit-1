@@ -60,14 +60,10 @@
 <script lang="ts">
 </script>
 
-<div>
-	<h4>Messages</h4>
-
-	<div class="messages">
-		{#each messages as { text, style }}
-			<div class="msg {style}" transition:typewriter>{text}</div>
-		{/each}
-	</div>
+<div class="messages">
+	{#each messages as { text, style }}
+		<div class="msg {style}" transition:typewriter>{text}</div>
+	{/each}
 </div>
 
 <style>

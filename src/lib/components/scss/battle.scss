@@ -1,0 +1,96 @@
+@mixin devBorder($color: #7e8c9f) {
+	border-width: 1px;
+	border-style: dashed;
+	border-color: $color;
+}
+
+:root {
+	--game-size: 700px;
+    --game-foo-size: calc(var(--game-size) * 0.2);
+}
+
+.sr-only,
+.visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
+}
+
+.frame {
+	width: var(--game-size);
+	aspect-ratio: 1/1;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	position: relative;
+
+	@include devBorder(var(--gray-400));
+}
+
+.display {
+	flex-grow: 1;
+	position: relative;
+}
+.bar {
+	display: flex;
+	height: var(--game-foo-size);
+	overflow: hidden;
+}
+
+.chat {
+	flex: 1;
+	display: grid;
+	padding: var(--spacing-sm);
+	gap: var(--spacing-sm);
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr 1fr;
+	grid-auto-rows: 28px;
+	align-self: center;
+
+	@include devBorder(var(--gray-400));
+}
+
+.menu {
+	flex: 1;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 1fr 1fr;
+	gap: var(--spacing-xs);
+	padding: var(--spacing-xs);
+}
+
+.msg-line {
+	align-self: center;
+	background-color: rgba(215, 215, 215, 0.45);
+}
+
+.layer1 {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr auto;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+.messages {
+	padding: var(--spacing);
+}
+.msg {
+	color: var(--gray-600);
+	font-family: 'Press Start 2P', serif;
+	font-weight: 400;
+	font-style: normal;
+	/* font-size: 1.2rem;
+    font-weight: 600; */
+}
+.text-info {
+	color: var(--sky-600);
+}
+.text-error {
+	color: var(--red-600);
+}
